@@ -1,0 +1,190 @@
+﻿<Window x:Name="Login" x:Class="kurs1sem2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kurs1sem2"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#00000000"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Sign in SavePass" Height="520" Width="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Visibility="Visible" MouseLeftButtonDown="Login_MouseLeftButtonDown" Loaded="Login_Loaded">
+    <Grid>
+        <Border Background="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="0" ></Border>
+        <Rectangle Fill="{DynamicResource MaterialDesignPaper}" Margin="3">
+        </Rectangle>
+        <Button x:Name="ButtonClose"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+            HorizontalAlignment="Right"
+            Background="{DynamicResource PrimaryHueLightBrush}"
+            BorderBrush="{DynamicResource PrimaryHueLightBrush}"
+            Foreground="#DD000000"
+            Margin="0,13,13,483" Height="24" Width="24" Click="ButtonClose_Click">
+            <materialDesign:PackIcon
+            Kind="Close"
+            Height="20"
+            Width="20" />
+        </Button>
+        <StackPanel Margin="15,20">
+            <Label x:Name="LabelSignIn" Content="Sign in" FontFamily="Segoe UI Black" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
+            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+                <materialDesign:PackIcon x:Name="IconAccount" Kind="Account" VerticalAlignment="Center" Height="25" Width="25" Margin="5,9,5,0" Foreground="Gray"/>
+                <TextBox x:Name="TextBoxLogin" Margin="5,5,5,0"
+                    materialDesign:HintAssist.Hint="Login"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="328" FontSize="22" GotFocus="TextBoxLogin_GotFocus" LostFocus="TextBoxLogin_LostFocus" KeyDown="TextBoxLogin_KeyDown"/>
+            </StackPanel>
+            <Label x:Name="LabelLoginErr" Visibility="Hidden" Foreground="#f44133" Margin="35,0,0,0" Content="Field is required" FontFamily="Segoe UI" FontSize="14" Padding="0" />
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                <materialDesign:PackIcon x:Name="IconKey" Kind="Key" VerticalAlignment="Center" Height="25" Width="25" Margin="5,9,5,5" Foreground="Gray"/>
+                <PasswordBox x:Name="TextBoxPass" Margin="5,0"
+                    materialDesign:HintAssist.Hint="Password"
+                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Width="326" FontSize="22" FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" GotFocus="TextBoxPass_GotFocus" LostFocus="TextBoxPass_LostFocus" KeyDown="TextBoxPass_KeyDown"/>
+            </StackPanel>
+            <Label x:Name="LabelPassErr" Visibility="Hidden" Foreground="#f44133" Margin="35,0,0,0" Content="Field is required" FontFamily="Segoe UI" FontSize="14" Padding="0" />
+            <Grid>
+                <CheckBox x:Name="CheckRemMe" Margin="10,5,0,5" Width="142"
+                    Style="{StaticResource MaterialDesignCheckBox}" FontFamily="Segoe UI" FontSize="18" HorizontalAlignment="Left">
+                    Remember me
+                </CheckBox>
+                <TextBlock FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0" FontFamily="Segoe UI">
+                    <Hyperlink FontSize="18" Foreground="{DynamicResource PrimaryHueDarkBrush}" Style="{StaticResource MaterialDesignCaptionHyperlink}">Forgot password?</Hyperlink>
+                </TextBlock>
+            </Grid>
+            <Label x:Name="LabelError" Content="Incorrect login or password" HorizontalAlignment="Center" FontFamily="Segoe UI"
+                   Foreground="#f44133" Visibility="Hidden" FontSize="14"/>
+            <Button x:Name="ButtonSignIn" Margin="0,5,0,0"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" Click="ButtonSignIn_Click" Height="45" Width="145" Content="_SIGN IN" FontSize="18"/>
+            <Grid Margin="0,10">
+                <Line StrokeThickness="1" Stroke="Gray"  X1="0" X2="180" Y1="0" Y2="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="or" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <Line StrokeThickness="1" Stroke="Gray"  X1="0" X2="180" Y1="0" Y2="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
+        <materialDesign:DialogHost DialogTheme="Inherit" x:Name="DialogCreateAccount" DialogClosing="DialogCreateAccount_Closing">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid>
+                    <StackPanel Margin="16">
+                        <Label x:Name="Create_Label" Content="Create account" FontFamily="Segoe UI Black" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 40" Foreground="{DynamicResource PrimaryHueDarkBrush}" />
+                        <StackPanel VerticalAlignment="Top" TextBox.GotFocus="Create_TextBoxes_GotFocus" TextBox.LostFocus="Create_TextBoxes_LostFocus">
+                            <StackPanel Width="350">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon x:Name="Create_IconEmail" Foreground="Gray" Kind="Email" VerticalAlignment="Center" Height="25" Width="25" Margin="0" />
+                                    <TextBox x:Name="Create_TextBoxEmail"
+                                FontSize="18" Margin="5 0 0 0" Width="320" HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Email"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" TabIndex="1"/>
+                                </StackPanel>
+                                <TextBlock x:Name="Create_TextBoxEmailError" Margin="30 0 0 0" Height="15" Text="(error)" FontSize="12" FontWeight="Normal" Foreground="#f44133" Visibility="Hidden" />
+                            </StackPanel>
+                            <StackPanel Width="350">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon x:Name="Create_IconLogin" Foreground="Gray" Kind="Account" VerticalAlignment="Center" Height="25" Width="25" Margin="0" />
+                                    <TextBox x:Name="Create_TextBoxLogin"
+                                FontSize="18" Margin="5 0 0 0" Width="320" HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Login"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" TabIndex="2"/>
+                                </StackPanel>
+                                <TextBlock x:Name="Create_TextBoxLoginError" Margin="30 0 0 0" Height="15" Text="(error)" FontSize="12" FontWeight="Normal" Foreground="#f44133" Visibility="Hidden" />
+                            </StackPanel>
+                            <StackPanel Width="350">
+                                <StackPanel Orientation="Horizontal" Height="43">
+                                    <materialDesign:PackIcon x:Name="Create_IconPass" Foreground="Gray" Kind="Key" VerticalAlignment="Center" Height="25" Width="25" Margin="0" />
+                                    <PasswordBox x:Name="Create_PasswordBoxPass" Visibility="Visible"
+                                    FontSize="18" Margin="5 0 0 0" Width="285" HorizontalAlignment="Left"
+                                    materialDesign:HintAssist.Hint="Password"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" TabIndex="3"/>
+                                    <TextBox x:Name="Create_TextBoxPass" Visibility="Collapsed"
+                                    FontSize="18" Margin="5 0 0 0" Width="285" HorizontalAlignment="Left"
+                                    materialDesign:HintAssist.Hint="Password"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ElementName=Create_PasswordBoxPass, Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ToggleButton x:Name="Create_btnPassVisilibility"
+                                    Style="{StaticResource MaterialDesignFlatToggleButton}"
+                                    HorizontalAlignment="Right" Height="35" Width="35" Checked="Create_btnPassVisilibility_CheckChanged" Unchecked="Create_btnPassVisilibility_CheckChanged">
+                                        <materialDesign:PackIcon x:Name="Create_btnPassVisilibilityIcon"
+                                        Kind="Eye"
+                                        Height="20"
+                                        Width="20" />
+                                    </ToggleButton>
+                                </StackPanel>
+                                <TextBlock x:Name="Create_TextBoxPassError" Margin="30 0 0 0" Height="15" Text="(error)" FontSize="12" FontWeight="Normal" Foreground="#f44133" Visibility="Hidden" />
+                            </StackPanel>
+                            <StackPanel Width="350">
+                                <StackPanel Orientation="Horizontal" Height="43">
+                                    <materialDesign:PackIcon x:Name="Create_IconPassConf" Foreground="Gray" Kind="Key" VerticalAlignment="Center" Height="25" Width="25" Margin="0" />
+                                    <PasswordBox x:Name="Create_PasswordBoxPassConf" Visibility="Visible"
+                                    FontSize="18" Margin="5 0 0 0" Width="285" HorizontalAlignment="Left"
+                                    materialDesign:HintAssist.Hint="Confirm password"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" TabIndex="4"/>
+                                    <TextBox x:Name="Create_TextBoxPassConf" Visibility="Collapsed"
+                                    FontSize="18" Margin="5 0 0 0" Width="285" HorizontalAlignment="Left"
+                                    materialDesign:HintAssist.Hint="Confirm password"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ElementName=Create_PasswordBoxPassConf, Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                                <TextBlock x:Name="Create_TextBoxPassConfError" Margin="30 0 0 0" Height="15" Text="(error)" FontSize="12" FontWeight="Normal" Foreground="#f44133" Visibility="Hidden" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="0 40 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="ButtonAccept"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsDefault="True"
+                            Margin="0 0 50 0" Click="ButtonAccept_Click" TabIndex="5">
+                                ACCEPT
+                            </Button>
+                            <Button x:Name="ButtonCancel"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsCancel="True"
+                            Margin="50 0 0 0"
+                            Command="materialDesign:DialogHost.CloseDialogCommand" TabIndex="6">
+                                <Button.CommandParameter>
+                                    <system:Boolean>False</system:Boolean>
+                                </Button.CommandParameter>
+                                CANCEL
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid x:Name="Create_GridLoading" Visibility="Collapsed" Background="#BF000000">
+                        <ProgressBar
+                        x:Name="Create_ProgressLoading"
+                        Width="50" Height="50" Value="0" IsIndeterminate="false"
+                        Style="{StaticResource MaterialDesignCircularProgressBar}"/>
+                    </Grid>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Button HorizontalAlignment="Center"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"    
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Content="_CREATE ACCOUNT" Height="45" Margin="0 0 0 50" Width="200" FontSize="18" VerticalAlignment="Bottom"/>
+            </Grid>
+        </materialDesign:DialogHost>
+        <Grid Margin="15" Background="White" Visibility="Collapsed">
+        </Grid>
+        <Grid x:Name="GridLoading" Visibility="Collapsed" Background="#BF000000">
+            <ProgressBar
+                x:Name="ProgressLoading"
+                Width="50"
+                Height="50"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Value="0"
+                IsIndeterminate="false" />
+        </Grid>
+        <materialDesign:Snackbar
+                x:Name="SnackbarMess"
+                Margin="0 0 0 3"
+                IsActive="False"
+                ActionButtonStyle="{StaticResource MaterialDesignSnackbarActionDarkButton}">
+            <materialDesign:SnackbarMessage
+                x:Name="SnackbarMessBtn"
+                Content="Text"
+                ActionClick="SnackbarMessBtn_ActionClick"
+                ActionContent="OK" />
+        </materialDesign:Snackbar>
+    </Grid>
+</Window>

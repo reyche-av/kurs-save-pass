@@ -1,0 +1,93 @@
+﻿<Window x:Class="kurs1sem2.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kurs1sem2"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#00000000"
+        Title="Settings" Height="500" Width="500" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Rectangle Height="500" Width="500" Fill="{DynamicResource MaterialDesignPaper}" RadiusY="20" RadiusX="20" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.ColumnSpan="2">
+            <Label  Content="Settings" Margin="10" FontSize="36" HorizontalAlignment="Center" />
+        </StackPanel>
+        <Grid Margin="10 100 10 10">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Label VerticalAlignment="Center" Content="Choose color" FontSize="18" />
+                    <Button x:Name="GreenBtn"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="15 0 0 0"
+                        Background="#FF8BC34A"
+                        BorderBrush="#FF8BC34A"
+                        Click="GreenBtn_Click">
+                        <materialDesign:PackIcon x:Name="GreenBtnIcon" Visibility="Hidden"
+                            Kind="check"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                    <Button x:Name="BlueBtn"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="15 0 0 0"
+                        Background="#FF2196F3"
+                        BorderBrush="#FF2196F3"
+                        Click="BlueBtn_Click">
+                        <materialDesign:PackIcon x:Name="BlueBtnIcon" Visibility="Hidden"
+                            Kind="check"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                    <Button x:Name="BluegreyBtn"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="15 0 0 0"
+                        Background="#FF607D8B"
+                        BorderBrush="#FF607D8B"
+                        Click="BluegreyBtn_Click">
+                        <materialDesign:PackIcon x:Name="BluegreyBtnIcon" Visibility="Hidden"
+                            Kind="check"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                    <Button x:Name="OrangeBtn"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="15 0 0 0"
+                        Background="#FFFF9800"
+                        BorderBrush="#FFFF9800"
+                        Click="OrangeBtn_Click">
+                        <materialDesign:PackIcon x:Name="OrangeBtnIcon" Visibility="Hidden"
+                            Kind="check"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                    <Button x:Name="PurpleBtn"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        Margin="15 0 0 0"
+                        Background="#FF9C27B0"
+                        BorderBrush="#FF9C27B0"
+                        Click="PurpleBtn_Click">
+                        <materialDesign:PackIcon x:Name="PurpleBtnIcon" Visibility="Hidden"
+                            Kind="check"
+                            Height="30"
+                            Width="30" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="0 0 0 10" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <Button x:Name="CANCEL" Width="120" Height="40" Margin="30, 10" Style="{StaticResource MaterialDesignFlatButton}" FontSize="18" Click="CANCEL_Click">
+                _CANCEL
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>    
+    
+    
+    
+    

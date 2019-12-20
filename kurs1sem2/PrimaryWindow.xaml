@@ -1,0 +1,363 @@
+﻿<Window x:Name="DataWindow" x:Class="kurs1sem2.PrimaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kurs1sem2"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#00000000"
+        Title="SavePass" Height="720" Width="1280" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="DataWindow_Closing" Loaded="DataWindow_Loaded">
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="66"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="300"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="66"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+        <Border Background="{DynamicResource PrimaryHueDarkBrush}" Margin="0" BorderThickness="0" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <Rectangle Fill="{DynamicResource MaterialDesignPaper}" Margin="3" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        
+        <Grid x:Name="GridPanel" Margin="0 30 0 0" Height="69" VerticalAlignment="Top">
+            <materialDesign:ColorZone
+                Mode="PrimaryDark"
+                Height="69">
+                <DockPanel Margin="0 0 10 0">
+                    <materialDesign:PopupBox
+                        DockPanel.Dock="Right"
+                        PlacementMode="BottomAndAlignRightEdges" Width="40" Height="40">
+                        <ListBox FontSize="16">
+                            <ListBoxItem MouseLeftButtonUp="AccountSettingsBtn_MouseLeftButtonUp">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Height="25"
+                                        Width="25"
+                                        Kind="UserEdit"/>
+                                    <Label Content="Account settings" Margin="12,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem MouseLeftButtonUp="LogoutBtn_MouseLeftButtonUp">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Height="25"
+                                        Width="25"
+                                        Kind="Logout"/>
+                                    <Label Content="Logout" Margin="12,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </materialDesign:PopupBox>
+                    <StackPanel Height="37"
+                        Orientation="Horizontal">
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <materialDesign:ColorZone
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Width="515"
+                Mode="Standard"
+                Padding="8 4 8 4"
+                CornerRadius="2"
+                Panel.ZIndex="1"
+                Margin="85 0 0 0"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1" Height="45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Height="25"
+                            Width="25"
+                            Kind="Magnify"
+                            Opacity=".56" />
+                    </Button>
+                    <TextBox
+                        x:Name="SearchTextBox"
+                        FontSize="16"
+                        Grid.Column="1"
+                        Margin="8 0 0 0"
+                        materialDesign:HintAssist.Hint="Name or Website"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"
+                        MinWidth="200"
+                        VerticalAlignment="Center" TextChanged="SearchTextBox_TextChanged"/>
+                </Grid>
+            </materialDesign:ColorZone>
+
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0 0 60 0">
+                <Label x:Name="labelLogin" Foreground="#DDFFFFFF" Padding="0" FontSize="24" Content="(login)" HorizontalAlignment="Right"/>
+                <Label x:Name="labelEmail" Foreground="#DDFFFFFF" Padding="0" FontSize="18" Content="(email@gmail.com)" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="69 99 0 3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Label x:Name="labelWhichItemSource" Margin="10 0 0 0" Content="All items" Foreground="{DynamicResource MaterialDesignColumnHeader}" FontSize="25" VerticalAlignment="Top"/>
+                <ListBox ItemsSource="{Binding}" x:Name="listBoxSource" Grid.IsSharedSizeScope="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False" MouseLeftButtonUp="ListBoxSource_MouseLeftButtonUp" MouseRightButtonUp="ListBoxSource_MouseRightButtonUp" Margin="0 45 0 0" >
+                    <!--ItemsSource="{Binding}"-->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border  
+                            x:Name="Border"
+                            Padding="11"
+                            BorderThickness="0"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}">
+                                <Grid Width="502">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            SharedSizeGroup="Checkerz" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Width="50" Height="50" Fill="{DynamicResource PrimaryHueMidBrush}"></Ellipse>
+                                    <TextBlock Margin="0 0 0 3" Foreground="{DynamicResource MaterialDesignBody}" FontSize="36" FontWeight="Normal" HorizontalAlignment="Center" Text="{Binding Icon}" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal"
+                                        Margin="8 0 0 0"
+                                        Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock 
+                                                FontSize="22"
+                                                FontWeight="Bold"
+                                                Text="{Binding Name}" Width="385" />
+                                            <TextBlock
+                                                Text="{Binding Site}" FontSize="20" HorizontalAlignment="Left" Width="375" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <materialDesign:PopupBox
+                                        PopupMode="MouseOver"
+                                        Width="50"
+                                        Height="50"
+                                        Margin="0 0 10 0"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                        PlacementMode="RightAndAlignMiddles"
+                                        ToolTipService.Placement="Right"
+                                        ToolTipService.IsEnabled="False">
+                                        <StackPanel>
+                                            <Button
+                                                x:Name="PopupFavButton"
+                                                Click="PopupFavButton_Click"
+                                                Tag="{Binding Path=.}"
+                                                ToolTip="Mark as favorite">
+                                                <materialDesign:PackIcon
+                                                    x:Name="FavoriteIcon"
+                                                    Kind="{Binding Favorite, UpdateSourceTrigger=PropertyChanged}"
+                                                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                                    Height="20"
+                                                    Width="20" />
+                                            </Button>
+                                            <Button
+                                                Tag="{Binding Path=.}"
+                                                Click="MenuItemEdit_Click"
+                                                ToolTip="Edit">
+                                                <materialDesign:PackIcon
+                                                    Kind="Edit"
+                                                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                                    Height="20"
+                                                    Width="20" />
+                                            </Button>
+                                            <Button
+                                                Tag="{Binding Path=.}"
+                                                Click="MenuItemDelete_Click"
+                                                ToolTip="Delete">
+                                                <materialDesign:PackIcon
+                                                    Kind="DeleteForever"
+                                                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                                    Height="25"
+                                                    Width="25" />
+                                            </Button>
+                                        </StackPanel>
+                                    </materialDesign:PopupBox>
+
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="1" Margin="0 0 3 0" Background="#10000000" MouseLeftButtonDown="GridItemInfoBack_MouseLeftButtonDown">
+                <Label x:Name="LabelChooseItem" Visibility="Visible" Grid.Column="1" FontSize="18" Content="Choose item" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Border BorderThickness="1 0 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}"/>
+            </Grid>
+            <Grid x:Name="GridItemInfo" Visibility="Collapsed" Grid.Column="1" Margin="0 0 3 0">
+                <StackPanel Margin="30" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock x:Name="ListItemName" FontSize="36" Text="(ListItemName)" Height="120" Width="540" TextWrapping="Wrap" TextAlignment="Center" />
+                </StackPanel>
+                <Grid Margin="0 160 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <Label FontSize="18" Content="Email or Username" HorizontalAlignment="Right"/>
+                            <Label FontSize="18" Content="Password" HorizontalAlignment="Right" Margin="0 15 0 0"/>
+                            <Label FontSize="18" Content="Website" HorizontalAlignment="Right" Margin="0 35 0 0"/>
+                            <Label FontSize="18" Content="Notes" HorizontalAlignment="Right" Margin="0 15 0 0"/>
+                            <TextBlock Text="Last modified" HorizontalAlignment="Right" Margin="0 185 0 0" Opacity="0.8" FontWeight="SemiBold"/>
+                            <TextBlock Text="Added" HorizontalAlignment="Right" Margin="0 3" Opacity="0.8" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="20 0 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBox x:Name="ListItemLogin" Margin="5,0,45,0" FontSize="18" Text="(Login)" BorderThickness="0" IsReadOnly="True" BorderBrush="{x:Null}" materialDesign:TextFieldAssist.UnderlineBrush="{x:Null}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="34*"/>
+                                    <ColumnDefinition Width="341*"/>
+                                </Grid.ColumnDefinitions>
+                                <PasswordBox x:Name="passwordField_p" Visibility="Visible" HorizontalAlignment="Left" Width="325" Password="01234" FontSize="18" Margin="5 15 0 0" GotFocus="PasswordField_p_GotFocus" Grid.ColumnSpan="2"/>
+                                <TextBox x:Name="passwordField_t" Visibility="Collapsed" HorizontalAlignment="Left" Width="325" Text="{Binding ElementName=passwordField_p, Path=Password, Mode=OneTime}" FontSize="18" Margin="5 15 0 0" LostFocus="PasswordField_t_LostFocus" Grid.ColumnSpan="2"/>
+                            </Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="LabelWebSite" FontSize="18" Content="(website)" Margin="0 35 0 0" MaxWidth="300"/>
+                                <Button x:Name="OpenWeb_btn" Padding="0" Width="20" Height="20" Margin="5 0 0 5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="OpenWeb_btn_Click" Foreground="{x:Null}">
+                                    <materialDesign:PackIcon Kind="OpenInNew" Width="20" Height="20" Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
+                                </Button>
+                            </StackPanel>
+                            <TextBox x:Name="ListItemNotes"
+                                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                Margin="5 19 0 0"
+                                MaxLength="256"
+                                FontSize="18"
+                                Width="325"
+                                Height="152"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto"
+                                materialDesign:HintAssist.Hint="Enter any important information"
+                                HorizontalAlignment="Left" TextChanged="ListItemNotes_TextChanged"/>
+                            <Label x:Name="ListItemNotesQuantity" FontSize="16" Margin="0 0 40 0" HorizontalAlignment="Right" Content="256/256"/>
+                            <TextBlock x:Name="LastModifiedDate" Text="(date)" HorizontalAlignment="Left" Margin="0 35 0 0" Opacity="0.7" FontWeight="Normal"/>
+                            <TextBlock x:Name="AddedDate" Text="(date)" HorizontalAlignment="Left" Margin="0 3" Opacity="0.7" FontWeight="Normal"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="GridMenu_Backround" Background="#B21E1E1E" Visibility="Collapsed" MouseLeftButtonDown="GridMenu_Backround_MouseLeftButtonDown">
+
+        </Grid>
+        <Grid x:Name="GridMenu" Width="66" Margin="3 30 0 3" Background="#FF303030" HorizontalAlignment="Left" MouseLeftButtonUp="GridMenu_MouseLeftButtonUp">
+            <ToggleButton x:Name="ToggleMenu" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Foreground="#DDFFFFFF" HorizontalAlignment="Right" Margin="16,15,15,0" VerticalAlignment="Top" Checked="ToggleMenu_Checked" Unchecked="ToggleMenu_Unchecked" Height="40" Width="Auto"/>
+            <ListView x:Name="ListViewMenu1" VerticalAlignment="Top" Foreground="#FFA8A8A8" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Margin="0,69,0,0" IsEnabled="False">
+                <ListViewItem x:Name="AllItems" Height="60" MouseLeftButtonUp="AllItems_MouseLeftButtonUp">
+                    <Grid Width="283">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Apps" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                            <TextBlock Text="All items" Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                        </StackPanel>
+                        <TextBlock x:Name="AllitemsCount" Text="0" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem x:Name="Favorites" Height="60" MouseLeftButtonUp="Favorites_MouseLeftButtonUp">
+                    <Grid Width="283">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Favorite" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                            <TextBlock Text="Favorites" Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                        </StackPanel>
+                        <TextBlock x:Name="FavoritesCount" Text="0" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem x:Name="AddItem" Height="60" MouseLeftButtonUp="AddItem_MouseLeftButtonUp">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PlusBox" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                        <TextBlock Text="Add a new item" Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem x:Name="PassGen" Height="60" MouseLeftButtonUp="PassGen_MouseLeftButtonUp">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TextboxPassword" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                        <TextBlock Text="Password Generator" Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem x:Name="ChooseTheme" Height="60" MouseLeftButtonUp="ChooseTheme_MouseLeftButtonUp">
+                    <StackPanel Width="284" Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ThemeLightDark" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                        <TextBlock Text="Dark theme               " Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                        <ToggleButton x:Name="DarkLightBtn"
+                            Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"
+                            IsChecked="False"
+                            Unchecked="DarkLightBtn_IsCheckedChanged" Checked="DarkLightBtn_IsCheckedChanged"
+                            />
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+            <ListView x:Name="ListViewMenu2" VerticalAlignment="Bottom"  Foreground="#FF979797" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsEnabled="False">
+                <ListViewItem x:Name="Settings" VerticalAlignment="Bottom" Height="60" MouseLeftButtonUp="Settings_MouseLeftButtonUp">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Settings" Margin="7,0,0,0" VerticalAlignment="Center" Height="35" Width="35"/>
+                        <TextBlock Text="Settings" Margin="20,10" VerticalAlignment="Center" FontSize="18"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+        <materialDesign:Snackbar
+            Margin="0 0 0 3"
+            Message="Text"
+            IsActive="False"
+            x:Name="SnackbarMess" Grid.ColumnSpan="2"/>
+        <Grid x:Name="GridLoading" Visibility="Collapsed" Background="#BF000000">
+            <ProgressBar
+                x:Name="ProgressLoading"
+                Width="50"
+                Height="50"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Value="0"
+                IsIndeterminate="False" />
+        </Grid>
+        <Grid x:Name="WindowPanel" Background="#FF1E1E1E" Height="30" VerticalAlignment="Top" MouseLeftButtonDown="WindowPanel_MouseLeftButtonDown">
+            <TextBlock FontSize="16" HorizontalAlignment="Center" Text="DiscoverSecurity" Foreground="Gray" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button
+                    Click="MiniBtn_Click"
+                    Height="30" Width="40" Margin="0"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon
+                        Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                        Width="13"
+                        Height="13"
+                        Kind="WindowMinimize"/>
+                </Button>
+                <Button
+                    Click="CloseBtn_Click"
+                    Height="30" Width="40" Margin="0 0 3 0"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon
+                        Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                        Width="20"
+                        Height="20"
+                        Kind="WindowClose"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

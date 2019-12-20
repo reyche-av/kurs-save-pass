@@ -1,0 +1,92 @@
+﻿<Window x:Class="kurs1sem2.PassGenDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kurs1sem2"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#00000000"
+        Title="Account" Height="400" Width="600" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Height="400" Width="600" Fill="{DynamicResource MaterialDesignPaper}" RadiusY="20" RadiusX="20" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.ColumnSpan="2">
+            <Label  Content="Password Generator" Margin="10" FontSize="36" HorizontalAlignment="Center" />
+        </StackPanel>
+        <Grid Margin="10 83 0 10" Grid.Column="0">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label VerticalAlignment="Bottom" FontSize="18" Content="Length"/>
+                    <Slider x:Name="Length" Margin="0 0 0 10"
+                        FontSize="16"
+                        Minimum="4"
+                        Maximum="20"
+                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                        Value="8"
+                        Width="200" />
+                    <Label FontSize="18" Content="{Binding ElementName=Length,Path=Value}" VerticalAlignment="Bottom"/>
+                </StackPanel>
+                <Grid Margin="0 15 0 0" >
+                    <Label FontSize="18" Content="A - Z" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                    <ToggleButton x:Name="Upper" HorizontalAlignment="Right" Margin="0 0 10 0"
+                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                </Grid>
+                <Grid Margin="0 10 0 0">
+                    <Label FontSize="18" Content="a - z" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                    <ToggleButton x:Name="Lower" HorizontalAlignment="Right" Margin="0 0 10 0"
+                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                </Grid>
+                <Grid Margin="0 10 0 0">
+                    <Label FontSize="18" Content="0 - 9" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                    <ToggleButton x:Name="Numbers" HorizontalAlignment="Right" Margin="0 0 10 0"
+                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                </Grid>
+                <Grid Margin="0 10 0 0">
+                    <Label FontSize="18" Content="Special characters" MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                    <ToggleButton x:Name="Special" HorizontalAlignment="Right" Margin="0 0 10 0"
+                        Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="0 145 10 10" Grid.Column="1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical">
+                    <TextBox
+                        x:Name="PassField"
+                        Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                        FontSize="16"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        Width="280"
+                        materialDesign:HintAssist.Hint="Your password"
+                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Margin="0 63 0 0"
+                        MinWidth="220"
+                        MinHeight="40"
+                        FontSize="16"
+                        Width="200"
+                        Click="Button_Click">
+                        _GENERATE PASSWORD
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="0 0 0 10" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <Button x:Name="CANCEL" Width="120" Height="40" Margin="30, 10" Style="{StaticResource MaterialDesignFlatButton}" FontSize="18" Click="CANCEL_Click">
+                _CANCEL
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
